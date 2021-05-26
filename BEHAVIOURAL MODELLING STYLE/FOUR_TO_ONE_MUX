@@ -1,0 +1,37 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+ 
+entity demux is
+    Port ( din : in STD_LOGIC;
+           a,b,c,d : out STD_LOGIC;
+           sel : in STD_LOGIC_vector(1 downto 0));
+end demux;
+ 
+architecture Behavioral of demux is
+-----component signal mem
+begin
+process(din,sel)
+----variable
+begin
+a <= '0';
+b <= '0';
+c <= '0';
+d <= '0';
+ 
+if(sel = "00") then
+a <= din;
+elsif (sel = "01") then
+b <= din;
+elsif (sel = "10") then
+c <= din;
+elsif (sel = "11") then
+d <= din;
+else
+null;
+end if;
+ 
+ 
+end process;
+ 
+end Behavioral;
+© 2021 GitHub, Inc.
