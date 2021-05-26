@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+--use ieee.numeric_std.all;
+--use ieee.std_logic_unsigned.all;
+
+
+entity ff7 is
+port(
+		 din : in std_logic_vector(7 downto 0);
+		 dout : out std_logic_vector(2 downto 0)
+);
+end ff7;
+
+architecture ff8 of ff7 is
+begin
+process(din)
+begin
+if (din(0) ='1' and din(1) ='0' and din(2) ='0' and din(3) ='0' and din(4) ='0' and din(5) ='0' and din(6) ='0' and din(7) ='0') then
+	dout <= "000";
+elsif (din(1) ='1' and din(2) ='0' and din(3) ='0' and din(4) ='0' and din(5) ='0' and din(6) ='0' and din(7) ='0') then
+	dout <= "001";
+elsif (din(2) ='1' and din(3) ='0' and din(4) ='0' and din(5) ='0' and din(6) ='0' and din(7) ='0') then
+	dout <= "010";
+elsif (din(3) ='1' and din(4) ='0' and din(5) ='0' and din(6) ='0' and din(7) ='0') then
+	dout <= "011";
+elsif (din(4) ='1' and din(5) ='0' and din(6) ='0' and din(7) ='0') then
+	dout <= "100";
+elsif (din(5) ='1' and din(6) ='0' and din(7) ='0') then
+	dout <= "101";
+elsif (din(6) ='1' and din(7) ='0') then
+	dout <= "110";
+elsif (din(7) ='0') then
+	dout <= "111";
+else
+	dout <= "XXX";
+end if;
+end process;
+end ff8;
