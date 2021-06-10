@@ -1,0 +1,32 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity tb5 is
+end tb5;
+
+architecture tb6 of tb5 is
+
+type record1 is record
+a,b,c,d : std_logic;
+e,f : std_logic_vector(3 downto 0);
+g,h : integer range 0 to 100;
+end record;
+
+constant stimuli : record1 := ('1' , '0' , '1' , '1' ,"1011","1111",58,91);
+
+signal a1,a2,a3,a4 : std_logic;
+signal b1,b2 : std_logic_vector(3 downto 0);
+signal c1,c2 : integer range 0 to 100;
+begin
+
+a1 <= stimuli.a;
+a2 <= stimuli.b;
+a3 <= stimuli.c;
+a4 <= stimuli.d;
+b1 <= stimuli.e;
+b2 <= stimuli.f;
+c1 <= stimuli.g;
+c2 <= stimuli.h;
+
+end tb6;
+
