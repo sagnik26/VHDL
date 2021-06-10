@@ -1,0 +1,127 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+--------It detects overlapping sequence of "101"---------
+
+
+entity ov1 is
+	port(
+		rst,clk,din : in std_logic;
+		dout : out std_logic
+	);
+end ov1;
+
+architecture ov2 of ov1 is
+type state_type is (s0,s1,s2);
+signal state,next_state : state_type := s0;
+begin
+
+reset_logic : process(clk)
+begin
+if(rising_edge(clk)) then
+	if(rst = '1') then
+		state <= s0;
+	else 
+		state <= next_state;
+	end if;
+end if;
+end process;
+
+
+next_state_and_output_logic : process(din,state)
+begin
+case(state) is
+	when s0 =>
+		if(din = '1') then
+			next_state <= s1;
+			dout <= '0';
+		else
+			next_state <= s0;
+			dout <= '0';
+		end if;
+		
+	when s1 =>
+		if(din = '0') then
+			next_state <= s2;
+			dout <= '0';
+		else
+			next_state <= s1;
+			dout <= '0';
+		end if;
+			
+	when s2 =>
+		if(din = '1') then
+			next_state <= s1;
+			dout <= '1';
+		else
+			next_state <= s0;
+			dout <= '0';
+		end if;
+
+	when others =>
+			next_state <= s0;
+			dout <= '0';
+end case;
+end process;
+end ov2;
+
+
+
+--------------------------TestBench code----------------------------
+
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity ov1tb is
+end ov1tb;
+
+architecture ov2tb of ov1tb is
+component ov1 is
+	port(
+		rst,clk,din : in std_logic;
+		dout : out std_logic
+	);
+end component;
+
+signal rst,clk,din,dout : std_logic ;
+signal sequence : std_logic_vector(9 downto 0) := "1010100101";
+
+begin
+
+T1 : ov1 port map (rst => rst , clk => clk , din => din , dout => dout);
+
+clk_sim : process(clk)
+begin
+if clk = '1' then
+    clk <= '0' after 100 ns;
+else
+    clk <= '1' after 100 ns;
+end if;
+end process;
+
+process(clk)
+variable ind : integer range 0 to 10 := 0; 
+begin
+	if(rising_edge(clk)) then
+		if(rst = '1') then
+			ind := 0;
+	
+		else
+			ind := ind + 1;
+		end if;
+	
+		if(ind = 9) then
+			rst <= '1';
+		else
+			rst <= '0';
+		end if;
+	end if;
+din <= sequence(9-ind);
+end process;
+end ov2tb;
+
+
+
