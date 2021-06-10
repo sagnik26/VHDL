@@ -1,0 +1,21 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use std.textio.all;
+use IEEE.std_logic_textio.all;
+
+
+entity tb is
+end tb;
+
+architecture tb2 of tb is
+signal i1 : integer range 0 to 130 := 128;
+signal v1 : integer range 0 to 70 := 0;
+signal v2 : integer range 0 to 40 := 0;
+signal v3 : integer range 0 to 20 := 0;
+begin
+
+v1 <= i1 / 2;
+v2 <= i1 / 4;
+v3 <= i1 / 8;
+
+end tb2;
