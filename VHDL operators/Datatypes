@@ -1,0 +1,33 @@
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use std.textio.all;
+use IEEE.std_logic_textio.all;
+ 
+ 
+entity tb is
+end tb;
+ 
+ 
+architecture tbnew of tb is
+-------------Datatypes belonging to STD library ------------------------------
+signal x : bit := '0';
+signal y1 : bit_vector(3 downto 0) := "1000"; --MSB will be on right
+signal y2 : bit_vector(0 to 3) := "1000";  --MSB will be on Left
+signal b1 : boolean := true ;
+signal i1 : integer range 10 downto 0 := 5; --  - 2^32 / 2 to 2^32/2
+signal n1 : natural range 0 to 10 := 5;  --  0 to 2^32 / 2 
+signal r1 : real := 1.345;  -- -1E38  to  1E38  - Non-Synthesizable (Use for testbench only)
+ 
+-------------Datatypes belonging to IEEE library ----------------------------
+signal s1 : std_logic := '1';
+signal s2 : std_logic_vector(3 downto 0) := "1000";
+ 
+begin
+process 
+variable my_line : line;
+begin
+write(my_line,s2);
+writeline(output,my_line);
+end process;
+end tbnew;
