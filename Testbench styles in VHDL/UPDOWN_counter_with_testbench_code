@@ -1,0 +1,72 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
+use IEEE.STD_LOGIC_UNSIGNED.all;
+ 
+entity counter is
+    Port ( rst,clk,dwn : in std_logic;
+           dout: out std_logic_vector(3 downto 0));
+end counter;
+ 
+architecture count_arch of counter is
+signal count : std_logic_vector(3 downto 0) := "0000";
+    begin
+      process(rst,clk)
+        begin
+          if (rst = '1') then
+          count <= "0000";
+          elsif (clk'event and clk = '1') then
+                   if (dwn = '1') then 
+                       count <= count - 1;
+                   else   
+                       count <= count + 1;
+                   end if;
+          end if;
+         end process;
+  dout <= count;
+end count_arch;
+
+
+-----------------------Testbench Code -------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
+use IEEE.STD_LOGIC_UNSIGNED.all;
+ 
+entity counttb is
+end counttb;
+ 
+architecture Behavioral of counttb is
+signal rst,clk,dwn : std_logic := '0';
+signal dout : std_logic_Vector(3 downto 0);
+ 
+component counter is
+    Port ( rst,clk,dwn : in std_logic;
+           dout: out std_logic_vector(3 downto 0));
+end component;
+begin
+ 
+C1 : counter port map (rst => rst, clk => clk,dwn => dwn,dout => dout);
+ 
+clk_process:process(clk)
+begin
+clk <= not clk after 10 ns;
+end process;
+ 
+control_process:process
+begin
+rst <= '1';
+wait for 50 ns;
+rst <= '0';
+dwn <= '1';
+wait for 200 ns;
+dwn <= '0';
+wait for 50 ns;
+rst <= '1';
+wait for 50 ns;
+wait;
+end process;
+ 
+end Behavioral;
