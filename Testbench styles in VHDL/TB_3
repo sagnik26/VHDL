@@ -1,0 +1,45 @@
+
+Library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+ 
+entity toptb is 
+end toptb;
+ 
+architecture toptb2 of toptb is
+signal a,b,c,d : std_logic := '0';
+begin
+ 
+-------------Method 1-------------
+
+a <= '1' after 10 ns, '0' after 20 ns, '1' after 40 ns;
+
+-------------Method 2-------------
+
+process
+begin
+b <= '1';
+wait for 10 ns;
+b <= '0';
+wait for 20 ns;
+b <= '1';
+wait for 30 ns;
+wait;
+end process;
+ 
+------------------Method 3---------
+process(c)
+begin
+c <= not c after 20 ns;
+end process;
+ 
+-----------------------Method 4-----------
+ 
+process
+begin
+d <= not d;
+wait for 20 ns;
+end process;
+ 
+---------------------------------------------
+  
+end toptb2;
