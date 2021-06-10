@@ -1,0 +1,25 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity interl is
+    Port ( dout : out  STD_LOGIC_VECTOR (11 downto 0));
+end interl;
+
+architecture interl2 of interl is
+signal a :std_logic_vector(3 downto 0) := "1001";
+signal b : std_logic_vector(3 downto 0) := "1101";
+signal c : std_logic_vector(3 downto 0) := "0110";
+signal ctemp : std_logic_vector(11 downto 0);
+
+begin
+
+first_generate: for i in 3 downto 0 generate
+ctemp(3*i)  <= a(i);
+ctemp(3*i + 1) <= b(i);
+ctemp(3*i + 2) <= c(i);
+
+end generate first_generate;
+
+dout <= ctemp;
+
+end interl2;
